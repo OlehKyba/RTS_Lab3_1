@@ -7,7 +7,7 @@ List<int> fermaDecomposition(Map<String, int> map){
   int decompositionNumber = map["decompositionNumber"];
   int maxSteps = map["steps"];
   int currentStep = 0;
-  int x = sqrt(decompositionNumber).toInt() + 1;
+  int x = sqrt(decompositionNumber).toInt();
 
   double res;
   int resSqrt;
