@@ -171,11 +171,37 @@ class _InputFormState extends State<InputForm> {
     }
   }
 
-  String _validateInt(String value) {
+  int _validateInt(String value) {
+    int iValue;
     try {
-      int.parse(value);
+      iValue = int.parse(value);
     } catch (e) {
+    return null;
+    }
+    return iValue;
+  }
+
+  String _validateN(String value){
+    int iValue = _validateInt(value);
+    if (iValue == null){
       return 'Некоректний ввід! Має бути integer!';
+    }
+    if (iValue < 1){
+      return 'Некоректний ввід! Число має бути більше 1!';
+    }
+    if (iValue % 2 == 0){
+      return 'Некоректний ввід! Число має бути непарним!';
+    }
+    return null;
+  }
+
+  String _validateSteps(String value){
+    int iValue = _validateInt(value);
+    if (iValue == null){
+      return 'Некоректний ввід! Має бути integer!';
+    }
+    if(iValue < 0){
+      return 'Некоректний ввід! Число має бути більше 0!'
     }
     return null;
   }
@@ -186,7 +212,7 @@ class _InputFormState extends State<InputForm> {
     List<Widget> rows = [
       TextFormField(
           keyboardType: TextInputType.numberWithOptions(),
-          validator: this._validateInt,
+          validator: this._validateN,
           onSaved: (String value) {
             this.data.decompositionNumber = int.parse(value);
           },
@@ -197,7 +223,7 @@ class _InputFormState extends State<InputForm> {
       ),
       TextFormField(
           keyboardType: TextInputType.numberWithOptions(),
-          validator: this._validateInt,
+          validator: this._validateSteps,
           onSaved: (String value) {
             this.data.steps = int.parse(value);
           },
